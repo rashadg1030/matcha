@@ -8,7 +8,10 @@
 
 module Matcha (
     someFunc,
+    Request (..),
 ) where
+
+import Network.Wai.Internal (Request (..))
 
 someFunc :: IO ()
 someFunc = putStrLn "someFunc"
