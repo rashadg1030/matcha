@@ -6,9 +6,9 @@
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE ViewPatterns #-}
 
-module Matcha
-    ( someFunc
-    ) where
+module Matcha (
+    someFunc,
+) where
 
 someFunc :: IO ()
 someFunc = putStrLn "someFunc"
