@@ -1,4 +1,4 @@
-# Matcha
+# matcha
 
 *matcha* is a web library for Haskell based on pattern matching!
 
