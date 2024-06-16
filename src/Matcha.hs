@@ -44,6 +44,7 @@ module Matcha (
     match,
     with,
     handle,
+    ifThenElse,
 
     -- ** Returns `Application` (simple)
     node,
@@ -132,6 +133,12 @@ on f g req = (g $ f req) req
 
 match :: forall a. (RequestData a) => (a -> Application) -> Application
 match f req = f (grab @a req) req
+
+ifThenElse :: forall a. (RequestData a) => (a -> Bool) -> Application -> Application -> Application
+ifThenElse p app1 app2 req send =
+    if p $ grab @a req
+        then app1 req send
+        else app2 req send
 
 with :: forall a o e. (RequestData a, Parseable a) => (Parser a) o -> (Either e o -> Application) -> Application
 with parser f req = f (parse parser $ grab @a req) req
