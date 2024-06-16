@@ -1,3 +1,11 @@
 body {
-    background-color: /* #B9DCA9  ;*/ #69bf64; /*Too Dark??*/
+    background-color: #333333; /* #B9DCA9  ;*/ /* #69bf64; */ /*Too Dark??*/
+}
+
+h1 {
+    color: #69bf64;
+}
+
+h2 {
+    color: #B9DCA9;
 }
