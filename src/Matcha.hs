@@ -4,10 +4,13 @@
 {-# LANGUAGE DefaultSignatures #-}
 {-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE FunctionalDependencies #-}
+{-# LANGUAGE InstanceSigs #-}
 {-# LANGUAGE LambdaCase #-}
+{-# LANGUAGE LinearTypes #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE RankNTypes #-}
 {-# LANGUAGE RecordWildCards #-}
 {-# LANGUAGE ScopedTypeVariables #-}
 {-# LANGUAGE TypeApplications #-}
@@ -16,22 +19,51 @@
 {-# LANGUAGE ViewPatterns #-}
 
 module Matcha (
-    someFunc,
+    -- Types
+    Path,
+    -- Patterns
+    pattern GET,
+    pattern POST,
+    pattern PUT,
+    pattern Param,
+    pattern Blob,
+    pattern End,
+    pattern Req,
+    -- Request Accessors
+    method,
+    path,
+    query,
+    headers,
+    ssl,
+    Matcha.vault,
+    -- Functions
+
+    -- ** Returns `Application`
+    on,
+    match,
+    with,
+    handle,
+
+    -- ** Returns `Application` (simple)
+    node,
+    leaf,
+
+    -- ** Returns `Either e o`
+    view,
+    using,
 ) where
 
 import Data.Either (partitionEithers)
 import Data.Kind (Type)
 import Data.Text (Text)
+import Data.Vault.Lazy (Vault)
 import Network.HTTP.Types (Method, Query, RequestHeaders)
-import Network.Wai (Application, Request)
+import Network.Wai (Application, Request, Response, ResponseReceived)
 import Network.Wai.Internal (Request (..))
 import Web.HttpApiData (
     FromHttpApiData (parseUrlPiece),
     ToHttpApiData (toUrlPiece),
  )
-
-someFunc :: IO ()
-someFunc = putStrLn "someFunc"
 
 type Path = [Text]
 
@@ -40,6 +72,9 @@ pattern GET = "GET"
 
 pattern POST :: Method
 pattern POST = "POST"
+
+pattern PUT :: Method
+pattern PUT = "PUT"
 
 pattern Param :: (ToHttpApiData a, FromHttpApiData a) => a -> Text
 pattern Param x <- (parseUrlPiece -> Right x)
@@ -54,67 +89,56 @@ pattern Blob l <- (partitionEithers . map parseUrlPiece -> ([], l))
 pattern End :: Path
 pattern End = []
 
--- parse :: b -> Parser a -> Result Error a
--- with :: Parser a -> b -> Result Error a
-
-class RequestData i where
-    grab :: Request -> i
-
-instance RequestData Path where
-    grab = pathInfo
-
-instance RequestData Request where
-    grab = id
-
-match :: forall a. (RequestData a) => (a -> Application) -> Application
-match f req = f (grab @a req) req
-
--- RequestData constraint not required
-class (RequestData i) => Parseable i where
-    type Parser i :: Type -> Type
-    parse :: (Parser i) o -> i -> Either e o
-
--- with :: forall i o e. (Parseable i) => i -> (Parser i) o -> Either e o
--- with = flip parse
-
-with :: forall i o e. (Parseable i) => (Parser i) o -> (Either e o -> Application) -> Application
-with parser f req = f (parse parser $ grab @i req) req
-
-on :: forall i o e. (Parseable i) => Request -> (Parser i) o -> Either e o
-on request parser = parse @i parser (grab request)
-
-pattern Req :: Method -> Path -> Query -> RequestHeaders -> Bool -> Request
-pattern Req{method, path, query, headers, ssl} <-
+pattern Req :: Method -> Path -> Query -> RequestHeaders -> Bool -> Vault -> Request
+pattern Req{method, path, query, headers, ssl, vault} <-
     Request
         { requestMethod = method
         , pathInfo = path
         , queryString = query
         , requestHeaders = headers
         , isSecure = ssl
+        , vault = vault
         }
 
-pattern MyUrl :: Int -> [Text]
-pattern MyUrl a = "hello" : Param a : "blu" : End
+class RequestData i where
+    grab :: Request -> i
 
-ex1 :: Application
-ex1 = match @Path \case
-    MyUrl num -> ex2
-    _ -> ex3
+instance RequestData Path where
+    grab :: Request -> Path
+    grab = pathInfo
 
-ex2 :: Application
-ex2 req send = case path req of
-    "hello" : Param @Int name : End -> case method req of
-        GET -> undefined
-        _ -> undefined
-    _ -> undefined
+instance RequestData Request where
+    grab :: Request -> Request
+    grab = id
 
-ex3 :: Application
-ex3 req send = case req of
-    Req{method = GET, path = "hello" : "world" : Param @Int age : End} -> do
-        undefined
-    Req{ssl = True} ->
-        undefined
-    _ -> undefined
+instance RequestData Method where
+    grab :: Request -> Method
+    grab = requestMethod
 
-ex4 :: Application
-ex4 = undefined
+class Parseable a where
+    type Parser a :: Type -> Type
+    parse :: (Parser a) o -> a -> Either e o
+
+on :: (Request -> a) -> (a -> Application) -> Application
+on f g req = (g $ f req) req
+
+match :: forall a. (RequestData a) => (a -> Application) -> Application
+match f req = f (grab @a req) req
+
+with :: forall a o e. (RequestData a, Parseable a) => (Parser a) o -> (Either e o -> Application) -> Application
+with parser f req = f (parse parser $ grab @a req) req
+
+handle :: forall m. (forall a. m a -> IO a) -> m Response -> Application
+handle run responseM _ send = run responseM >>= send
+
+node :: (Request -> a) -> (a -> Application) -> Application
+node = on
+
+leaf :: forall m. (forall a. m a -> IO a) -> m Response -> Application
+leaf = handle
+
+view :: (Parseable a) => (Parser a) o -> a -> Either e o
+view = parse
+
+using :: forall a o e. (RequestData a, Parseable a) => Request -> (Parser a) o -> Either e o
+using request parser = parse @a parser (grab request)
