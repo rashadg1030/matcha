@@ -37,7 +37,7 @@ wrapper :: Html a -> Html a
 wrapper innerHtml =
     fold
         [ htmlRaw
-            "<!DOCTYPE html><html lang=\"en\"><head><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"><meta http-equiv=\"X-UA-Compatible\" content=\"ie=edge\"><title>matcha Docs</title><link rel=\"stylesheet\" href=\"./docs.css\"></head><body><script src=\"./docs.js\"></script><img src=\"./Haskell-Logo.svg\"/>"
+            "<!DOCTYPE html><html lang=\"en\"><head><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"><meta http-equiv=\"X-UA-Compatible\" content=\"ie=edge\"><title>matcha Docs</title><link rel=\"stylesheet\" href=\"./docs.css\"></head><body><script src=\"./docs.js\"></script><img height=\"30rem\" src=\"./Haskell-Logo.svg\"/>"
         , innerHtml
         , htmlRaw
             "</body></html>"
