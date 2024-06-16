@@ -61,6 +61,7 @@ executable matcha-exe
   build-depends:
       base >=4.7 && <5
     , http-types
+    , text
     , matcha
     , wai
     , warp

@@ -25,6 +25,7 @@ module Matcha (
     pattern GET,
     pattern POST,
     pattern PUT,
+    pattern (:/),
     pattern Param,
     pattern Blob,
     pattern End,
@@ -75,6 +76,13 @@ pattern POST = "POST"
 
 pattern PUT :: Method
 pattern PUT = "PUT"
+
+pattern (:/) :: (ToHttpApiData a, FromHttpApiData a) => a -> Path -> Path
+pattern h :/ t <- (parseUrlPiece -> Right h) : t
+    where
+        h :/ t = toUrlPiece h : t
+
+infixr 8 :/
 
 pattern Param :: (ToHttpApiData a, FromHttpApiData a) => a -> Text
 pattern Param x <- (parseUrlPiece -> Right x)

@@ -16,7 +16,7 @@ main :: IO ()
 main = do
     print @String "Running app..."
     Warp.run 3000 $ match \case
-        "hello" : "world" : End -> match \case
+        "hello" : "world" : (age :: Int) :/ End -> match \case
             GET -> handle id do
                 return $ Wai.responseLBS HTTP.ok200 [] "Hello world!"
             _ -> \_ send -> send $ Wai.responseLBS HTTP.methodNotAllowed405 [] "Method Not Allowed"
@@ -25,7 +25,7 @@ main = do
 
 ex1 :: Wai.Application
 ex1 = match \case
-    "hello" : Param @Int a : "blu" : End -> ex2
+    "hello" : Param @Int age : "blu" : End -> ex2
     _ -> match \case
         GET -> handle id do
             return $ Wai.responseLBS HTTP.ok200 [] "Hello"
