@@ -44,6 +44,7 @@ module Matcha (
     match,
     with,
     handle,
+    respond,
     ifThenElse,
 
     -- ** Returns `Application` (simple)
@@ -145,6 +146,9 @@ with parser f req = f (parse parser $ grab @a req) req
 
 handle :: forall m. (forall a. m a -> IO a) -> m Response -> Application
 handle run responseM _ send = run responseM >>= send
+
+respond :: Response -> Application
+respond response _ send = send response
 
 node :: (Request -> a) -> (a -> Application) -> Application
 node = on

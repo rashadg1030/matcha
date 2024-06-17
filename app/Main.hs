@@ -17,13 +17,10 @@ main = do
     putStrLn "Running app..."
     Warp.run 3000 $ match \case
         "hello" : "world" : End -> match \case
-            GET -> handle id do
-                return $ Wai.responseLBS HTTP.ok200 [] "Hello world!"
-            _ -> \_ send -> send $ Wai.responseLBS HTTP.methodNotAllowed405 [] "Method Not Allowed"
-        End -> handle id do
-            return $ Wai.responseLBS HTTP.ok200 [] "Welcome!"
-        _ -> handle id do
-            return $ Wai.responseLBS HTTP.notFound404 [] "Not Found"
+            GET -> respond $ Wai.responseLBS HTTP.ok200 [] "Hello world!"
+            _ -> respond $ Wai.responseLBS HTTP.methodNotAllowed405 [] "Method Not Allowed"
+        End -> respond $ Wai.responseLBS HTTP.ok200 [] "Welcome!"
+        _ -> respond $ Wai.responseLBS HTTP.notFound404 [] "Not Found"
 
 ex1 :: Wai.Application
 ex1 = match \case

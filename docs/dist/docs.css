@@ -1,11 +1,52 @@
+html {
+    font-size: 18px;
+}
+
 body {
-    background-color: #333333; /* #B9DCA9  ;*/ /* #69bf64; */ /*Too Dark??*/
+    background-color: #f2f2f2;
+    color: #333333;
 }
 
-h1 {
-    color: #69bf64;
+main {
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    /* justify-content: space-between; */
 }
 
-h2 {
-    color: #B9DCA9;
+header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
+
+header>h1 {
+    font-size: 2rem;
+}
+
+article {
+    /* margin: auto; */
+    padding: 1rem;
+    justify-content: center;
+    width: 50%;
+}
+
+nav {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 8rem;
+}
+
+pre {
+    overflow: auto;
+}
+
+/* background: rgb(105,191,100);
+    background: -moz-linear-gradient(0deg, rgba(105,191,100,1) 0%, rgba(185,220,169,1) 100%);
+    background: -webkit-linear-gradient(0deg, rgba(105,191,100,1) 0%, rgba(185,220,169,1) 100%);
+    background: linear-gradient(0deg, rgba(105,191,100,1) 0%, rgba(185,220,169,1) 100%);
+    height: 100%;
+    margin: 0;
+    background-repeat: no-repeat;
+    background-attachment: fixed; */
