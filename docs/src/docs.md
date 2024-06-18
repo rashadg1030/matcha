@@ -22,7 +22,7 @@ main = serve 3000 myMatcha
 
 *matcha* is simple. It provides 3 core abstractions that are ubiquitous throughout Haskell for building *wai* apps:
 
-- **Patterns** for control flow (routing) and constructing/deconstructing request data in a type-safe manner
+- **Patterns** for control flow (routing) and constructing/deconstructing request data safely
 - **Parsers** for constructing your domain specific data types from request data in a composable manner
 - **Combinators** for defining your server in terms of pure `Application` values and encouraging an easy-to-read, tacit (point-free) programming style
 
