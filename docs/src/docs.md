@@ -3,21 +3,39 @@
 *matcha* is a minamalist library for implementing web servers in Haskell.
 
 ```haskell
+{-# LANGUAGE BlockArguments #-}
+{-# LANGUAGE LambdaCase #-}
+{-# LANGUAGE OverloadedStrings #-}
+
+module Main where
+
+import Matcha
+
 main = serve 3000 myMatcha
 
 myMatcha = match \case
-    "hello" : "world" : End -> match \case
-        GET -> respond $ Wai.responseLBS HTTP.ok200 [] "Hello world!"
-        _ -> respond $ Wai.responseLBS HTTP.methodNotAllowed405 [] "Method Not Allowed"
-    _ -> respond $ Wai.responseLBS HTTP.notFound404 [] "Not Found"
+    "matcha" : "please" : End -> match \case
+        GET -> respond $ responseLBS ok200 [("Content-Type", "text/html")] "&#127861"
+        _ -> respond $ responseLBS methodNotAllowed405 [] "Method Not Allowed"
+    _ -> respond $ responseLBS notFound404 [] "Not Found"
 ```
 
-## Structure
+*matcha* is simple. It provides 3 core abstractions for interacting with *wai* that are ubiquitous throughout Haskell:
 
-The structure is amazing. Do:
+- **Patterns** for control flow (routing) and constructing/deconstructing request data in a type-safe manner
+- **Parsers** for constructing your domain specific data types from request data in a composable manner
+- **Point-free functions** for defining your server in terms of pure `Application` values and focusing on immutability
 
-1. Nothing
-2. Something
-3. IDK
+This means *matcha* is easy to learn. Knowledge gained from using it is easily transferred to other domains, and vice-versa.
 
-## FAQ
+## Getting Started
+
+## Web Application Interface
+
+## Going Point-free
+
+## Custom Patterns
+
+## Using Parsers
+
+## Tips & Tricks

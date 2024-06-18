@@ -42,6 +42,13 @@ pre {
     overflow: auto;
 }
 
+footer {
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
 /* background: rgb(105,191,100);
     background: -moz-linear-gradient(0deg, rgba(105,191,100,1) 0%, rgba(185,220,169,1) 100%);
     background: -webkit-linear-gradient(0deg, rgba(105,191,100,1) 0%, rgba(185,220,169,1) 100%);

@@ -30,6 +30,7 @@ wrapper innerHtml =
               <meta name="viewport" content="width=device-width, initial-scale=1.0">
               <meta http-equiv="X-UA-Compatible" content="ie=edge">
               <title>matcha Docs</title>
+              <link rel="icon" href="matcha-blob.svg">
               <link rel="stylesheet" href="./docs.css">
               <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/sunburst.min.css">
               <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
@@ -66,6 +67,10 @@ wrapper innerHtml =
     , innerHtml
     , htmlRaw
         [s|
+                  <footer>
+                    <p>Powered by </p>
+                    <img src="./Haskell-Logo.svg" height="30px"/>
+                  </footer>
                 </article>
               </main>
             </body>

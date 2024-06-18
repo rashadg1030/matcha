@@ -5,6 +5,7 @@
               <meta name="viewport" content="width=device-width, initial-scale=1.0">
               <meta http-equiv="X-UA-Compatible" content="ie=edge">
               <title>matcha Docs</title>
+              <link rel="icon" href="matcha-blob.svg">
               <link rel="stylesheet" href="./docs.css">
               <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/sunburst.min.css">
               <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
@@ -39,26 +40,43 @@
                   </header>
         <h2>Introduction</h2>
 <p><em>matcha</em> is a minamalist library for implementing web servers in Haskell.</p>
-<pre><code class="language-haskell">main = serve 3000 myMatcha
+<pre><code class="language-haskell">{-# LANGUAGE BlockArguments #-}
+{-# LANGUAGE LambdaCase #-}
+{-# LANGUAGE OverloadedStrings #-}
+
+module Main where
+
+import Matcha
+
+main = serve 3000 myMatcha
 
 myMatcha = match \case
-    &quot;hello&quot; : &quot;world&quot; : End -&gt; match \case
-        GET -&gt; respond $ Wai.responseLBS HTTP.ok200 [] &quot;Hello world!&quot;
-        _ -&gt; respond $ Wai.responseLBS HTTP.methodNotAllowed405 [] &quot;Method Not Allowed&quot;
-    _ -&gt; respond $ Wai.responseLBS HTTP.notFound404 [] &quot;Not Found&quot;
+    &quot;matcha&quot; : &quot;please&quot; : End -&gt; match \case
+        GET -&gt; respond $ responseLBS ok200 [(&quot;Content-Type&quot;, &quot;text/html&quot;)] &quot;&amp;#127861&quot;
+        _ -&gt; respond $ responseLBS methodNotAllowed405 [] &quot;Method Not Allowed&quot;
+    _ -&gt; respond $ responseLBS notFound404 [] &quot;Not Found&quot;
 </code></pre>
-<h2>Structure</h2>
-<p>The structure is amazing. Do:</p>
-<ol>
-<li>Nothing
+<p><em>matcha</em> is simple. It provides 3 core abstractions for interacting with <em>wai</em> that are ubiquitous throughout Haskell:</p>
+<ul>
+<li><strong>Patterns</strong> for control flow (routing) and constructing/deconstructing request data in a type-safe manner
 </li>
-<li>Something
+<li><strong>Parsers</strong> for constructing your domain specific data types from request data in a composable manner
 </li>
-<li>IDK
+<li><strong>Point-free functions</strong> for defining your server in terms of pure <code>Application</code> values and focusing on immutability
 </li>
-</ol>
-<h2>FAQ</h2>
+</ul>
+<p>This means <em>matcha</em> is easy to learn. Knowledge gained from using it is easily transferred to other domains, and vice-versa.</p>
+<h2>Getting Started</h2>
+<h2>Web Application Interface</h2>
+<h2>Going Point-free</h2>
+<h2>Custom Patterns</h2>
+<h2>Using Parsers</h2>
+<h2>Tips &amp; Tricks</h2>
 <p></p>
+                  <footer>
+                    <p>Powered by </p>
+                    <img src="./Haskell-Logo.svg" height="30px"/>
+                  </footer>
                 </article>
               </main>
             </body>
