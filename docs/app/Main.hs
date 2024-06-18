@@ -16,7 +16,9 @@ main = do
   let docsHtmlResult = commonmark "docs" docsText
   case docsHtmlResult of
     Left error -> Prelude.putStrLn (show error)
-    Right (docsHtml :: Html ()) -> TextL.writeFile "dist/docs.html" $ renderHtml $ wrapper docsHtml
+    Right (docsHtml :: Html ()) -> do
+      TextL.writeFile "dist/docs.html" $ renderHtml $ wrapper docsHtml
+      TextL.writeFile "index.html" $ renderHtml $ wrapper docsHtml
 
 wrapper :: Html a -> Html a
 wrapper innerHtml =
