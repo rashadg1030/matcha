@@ -18,11 +18,6 @@
             </head>
             <body>
               <main>
-                <nav>
-                  <a href="#">Introduction</a>
-                  <a href="#">Installation</a>
-                  <a href="#">Structure</a>
-                </nav>
                 <article>
                   <header>
                     <h1>
@@ -48,24 +43,24 @@ module Main where
 
 import Matcha
 
-main = serve 3000 myMatcha
-
 myMatcha = match \case
     &quot;matcha&quot; : &quot;please&quot; : End -&gt; match \case
         GET -&gt; respond $ responseLBS ok200 [(&quot;Content-Type&quot;, &quot;text/html&quot;)] &quot;&amp;#127861&quot;
         _ -&gt; respond $ responseLBS methodNotAllowed405 [] &quot;Method Not Allowed&quot;
     _ -&gt; respond $ responseLBS notFound404 [] &quot;Not Found&quot;
+
+main = serve 3000 myMatcha
 </code></pre>
-<p><em>matcha</em> is simple. It provides 3 core abstractions for interacting with <em>wai</em> that are ubiquitous throughout Haskell:</p>
+<p><em>matcha</em> is simple. It provides 3 core abstractions that are ubiquitous throughout Haskell for building <em>wai</em> apps:</p>
 <ul>
 <li><strong>Patterns</strong> for control flow (routing) and constructing/deconstructing request data in a type-safe manner
 </li>
 <li><strong>Parsers</strong> for constructing your domain specific data types from request data in a composable manner
 </li>
-<li><strong>Point-free functions</strong> for defining your server in terms of pure <code>Application</code> values and focusing on immutability
+<li><strong>Combinators</strong> for defining your server in terms of pure <code>Application</code> values and encouraging an easy-to-read, tacit (point-free) programming style
 </li>
 </ul>
-<p>This means <em>matcha</em> is easy to learn. Knowledge gained from using it is easily transferred to other domains, and vice-versa.</p>
+<!-- This means *matcha* is easy to learn. Knowledge gained from using it is easily transferred to other domains, and vice-versa. -->
 <h2>Getting Started</h2>
 <h2>Web Application Interface</h2>
 <h2>Going Point-free</h2>

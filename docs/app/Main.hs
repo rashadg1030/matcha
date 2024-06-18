@@ -43,11 +43,6 @@ wrapper innerHtml =
             </head>
             <body>
               <main>
-                <nav>
-                  <a href="#">Introduction</a>
-                  <a href="#">Installation</a>
-                  <a href="#">Structure</a>
-                </nav>
                 <article>
                   <header>
                     <h1>
