@@ -12,16 +12,8 @@ body {
     /* color: #333333; */
     color: #0a0d36;
     height: 100%;
-    margin: 0;
     background-repeat: no-repeat;
     background-attachment: fixed;
-}
-
-main {
-    margin: auto;
-    display: flex;
-    justify-content: center;
-    width: 70%;
 }
 
 header {
@@ -36,6 +28,9 @@ header>h1 {
 article {
     padding: 1rem;
     justify-content: center;
+    width: 70%;
+    margin: auto;
+    /* justify-self: center; */
 }
 
 pre {
@@ -53,26 +48,4 @@ footer {
     html {
         font-size: 12px;
     }
-
-    main {
-        /* width: 100%; */
-        margin-left: 10rem;
-        margin-right: 10rem;
-    }
 }
-
-@media (max-width: 500px) {
-    main {
-        margin-left: 20rem;
-        margin-right: 20rem;
-    }
-}
-
-/* background: rgb(105,191,100);
-    background: -moz-linear-gradient(0deg, rgba(105,191,100,1) 0%, rgba(185,220,169,1) 100%);
-    background: -webkit-linear-gradient(0deg, rgba(105,191,100,1) 0%, rgba(185,220,169,1) 100%);
-    background: linear-gradient(0deg, rgba(105,191,100,1) 0%, rgba(185,220,169,1) 100%);
-    height: 100%;
-    margin: 0;
-    background-repeat: no-repeat;
-    background-attachment: fixed; */

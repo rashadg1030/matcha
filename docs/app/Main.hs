@@ -44,7 +44,6 @@ wrapper innerHtml =
               <script defer src="./docs.js"></script>
             </head>
             <body>
-              <main>
                 <article>
                   <header>
                     <h1>
@@ -69,7 +68,6 @@ wrapper innerHtml =
                     <img src="./Haskell-Logo.svg" height="30px"/>
                   </footer>
                 </article>
-              </main>
             </body>
           </html>
         |]
