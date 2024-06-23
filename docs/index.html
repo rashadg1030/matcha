@@ -1,38 +1,38 @@
-          <!DOCTYPE html>
-          <html lang="en">
-            <head>
-              <meta charset="UTF-8">
-              <meta name="viewport" content="width=device-width, initial-scale=1.0">
-              <meta http-equiv="X-UA-Compatible" content="ie=edge">
-              <title>matcha Docs</title>
-              <link rel="icon" href="matcha-blob.svg">
-              <link rel="stylesheet" href="./docs.css">
-              <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/sunburst.min.css">
-              <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>matcha Docs</title>
+    <link rel="icon" href="matcha-blob.svg">
+    <link rel="stylesheet" href="./docs.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/sunburst.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
 
-              <!-- and it's easy to individually load additional languages -->
-              <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/haskell.min.js"></script>
+    <!-- and it's easy to individually load additional languages -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/haskell.min.js"></script>
 
-              <script>hljs.highlightAll();</script>
-              <script defer src="./docs.js"></script>
-            </head>
-            <body>
-                <article>
-                  <header>
-                    <h1>
-                      matcha
-                    </h1>
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" height="3rem">
-                        <defs>
-                          <linearGradient id="gradient" x1="0" x2="0" y1="1" y2="0">
-                            <stop stop-color="rgba(105,191,100,1)" offset="0%" />
-                            <stop stop-color="rgba(185,220,169,1)" offset="100%" />
-                          </linearGradient>
-                        </defs>
-                      <path fill="url(#gradient)" d="M71.4,-23.2C80.1,3.4,65.9,37.3,40.8,55.5C15.6,73.6,-20.5,75.8,-44.5,58.9C-68.4,42.1,-80.1,6.1,-70.7,-21.5C-61.2,-49.2,-30.6,-68.6,0.4,-68.7C31.4,-68.8,62.8,-49.7,71.4,-23.2Z" transform="translate(100 100)"/>
-                    </svg>
-                  </header>
-        <h2>Introduction</h2>
+    <script>hljs.highlightAll();</script>
+    <script defer src="./docs.js"></script>
+  </head>
+  <body>
+      <article>
+        <header>
+          <h1>
+            matcha
+          </h1>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" height="3rem">
+              <defs>
+                <linearGradient id="gradient" x1="0" x2="0" y1="1" y2="0">
+                  <stop stop-color="rgba(105,191,100,1)" offset="0%" />
+                  <stop stop-color="rgba(185,220,169,1)" offset="100%" />
+                </linearGradient>
+              </defs>
+            <path fill="url(#gradient)" d="M71.4,-23.2C80.1,3.4,65.9,37.3,40.8,55.5C15.6,73.6,-20.5,75.8,-44.5,58.9C-68.4,42.1,-80.1,6.1,-70.7,-21.5C-61.2,-49.2,-30.6,-68.6,0.4,-68.7C31.4,-68.8,62.8,-49.7,71.4,-23.2Z" transform="translate(100 100)"/>
+          </svg>
+        </header>
+<h2>Introduction</h2>
 <p><em>matcha</em> is a minamalist library for implementing web servers in Haskell.</p>
 <pre><code class="language-haskell">{-# LANGUAGE BlockArguments #-}
 {-# LANGUAGE LambdaCase #-}
@@ -43,10 +43,10 @@ module Main where
 import Matcha
 
 myMatcha = match \case
-    &quot;matcha&quot; : &quot;please&quot; : End -&gt; match \case
-        GET -&gt; respond $ responseLBS ok200 [(&quot;Content-Type&quot;, &quot;text/html&quot;)] &quot;&amp;#127861&quot;
-        _ -&gt; respond $ responseLBS methodNotAllowed405 [] &quot;Method Not Allowed&quot;
-    _ -&gt; respond $ responseLBS notFound404 [] &quot;Not Found&quot;
+&quot;matcha&quot; : &quot;please&quot; : End -&gt; match \case
+GET -&gt; respond $ responseLBS ok200 [(&quot;Content-Type&quot;, &quot;text/html&quot;)] &quot;&amp;#127861&quot;
+_ -&gt; respond $ responseLBS methodNotAllowed405 [] &quot;Method Not Allowed&quot;
+_ -&gt; respond $ responseLBS notFound404 [] &quot;Not Found&quot;
 
 main = serve 3000 myMatcha
 </code></pre>
@@ -62,17 +62,240 @@ main = serve 3000 myMatcha
 <!-- This means *matcha* is easy to learn. Knowledge gained from using it is easily transferred to other domains, and vice-versa. -->
 <!-- *matcha* takes advantadge of Haskell's strenghts. -->
 <h2>Getting Started</h2>
+<p><em>Skip this section if you already have a Haskell environment set up on your computer</em></p>
+<p>To start building with <code>matcha</code>, you need to install <code>GHC</code>, the de facto Haskell compiler. The easiest way to do this is through <a href="https://www.haskell.org/ghcup/">GHCup</a>. <code>GHCup</code> will manage your <code>GHC</code> installation, as well as your <code>HLS</code> (Haskell Language Server) and <code>cabal</code> (Haskell's standard build tool and package manager) installations.</p>
+<p>Make sure you have</p>
+<ul>
+<li>GHC, a Haskell compiler
+</li>
+<li>cabal, Haskell package manager and build tool
+</li>
+<li>HLS, the official Haskell language server (optional)
+</li>
+</ul>
+<p>installed. Then</p>
+<ol>
+<li>Create a new directory on your computer
+</li>
+<li><code>cd</code> into that directory using your terminal
+</li>
+<li>Run the command <code>cabal init</code>
+</li>
+</ol>
+<p>This will create a new Haskell project in your directory.</p>
 <h2>Web Application Interface</h2>
-<h2>Going Point-free</h2>
-<h2>Custom Patterns</h2>
-<h2>Using Parsers</h2>
+<p><em>Skip this section if you're already familiar with the <code>wai</code> package</em></p>
+<p>Haskell's Web Application Interface, or <code>wai</code> for short, is a package you can use to implement a web server. It is the foundation of pretty much all Haskell web frameworks, including <code>yesod</code>, <code>servant</code>, and <code>ihp</code>. While most people will use one of these frameworks to implement their web server, it is totally feasible to use raw <code>wai</code> instead. In fact, one of Haskell's most widely used open-source projects, <code>PostgREST</code>, is implemented using just <code>wai</code>. Although <code>wai</code> is considered the low-level package for implementing web servers in Haskell, compared to packages in other programming languages, it is relatively high-level. The core type in <code>wai</code> is the <code>Application</code> type.</p>
+<pre><code class="language-haskell">type Application = Request -&gt; (Response -&gt; IO ResponseReceived) -&gt; IO ResponseReceived
+</code></pre>
+<p>The <code>Application</code> type is a type synonym for the type of a function that:</p>
+<ul>
+<li>Accepts a <code>Request</code> as its first argument
+</li>
+<li>Accepts an <code>IO</code> function that sends a <code>Response</code> to the client as its second argument
+</li>
+<li>Returns an <code>IO</code> action that responds to the client
+</li>
+</ul>
+<p>Very simple, and straighforward. You can define an <code>Application</code> like so:</p>
+<pre><code class="language-haskell">myApp :: Application
+myApp req send = case pathInfo req of
+[&quot;hello&quot;, &quot;world&quot;] -&gt; send $ responseLBS ok200 [] &quot;Hello world!&quot;
+_ -&gt; send $ responseLBS notFound404 [] &quot;NotFound&quot;
+</code></pre>
+<p>In the above example, we have a <code>myApp</code> function that takes a <code>Request</code> (we call it <code>req</code>) and a <code>Response -&gt; IO ResponseReceived</code> (called <code>send</code> because it sends the <code>Response</code>). Notice that in order to satisfy the <code>Application</code> type, we must return <code>IO ResponseReceived</code>. We can only do this with the <code>send</code> argument of type <code>Response -&gt; IO ResponseReceived</code>. It is not possible to construct a <code>ResponseReceived</code> value, so we are forced to use the <code>send</code> argument to return the correct type (this is a good thing!).</p>
+<p>You'll also notice from the above code example that we are getting a value from the <code>req</code> argument. <code>wai</code> provides various functions for accessing different parts of the <code>Request</code>. In the above example we are using <code>pathInfo</code> to inspect the path parts of the <code>Request</code>, which is just <code>[Text]</code> (a list of <code>Text</code>). We pattern match on this value to decide which <code>Response</code> we want to return to the client. It's really no different than anything else we do in Haskell.</p>
+<p><strong>To implement functions in Haskell we use patterns to realize the shape of its arguments and based on their shape, we return the corresponding data.</strong></p>
+<p>Here's another example:</p>
+<pre><code class="language-haskell">myOtherApp :: Application
+myOtherApp req send = case pathInfo req of
+[&quot;hello&quot;, &quot;world&quot;] -&gt; case requestMethod req of
+&quot;GET&quot; -&gt; send $ responseLBS ok200 [] &quot;You got ME!&quot;
+&quot;DELETE&quot; -&gt; send $ responseLBS ok200 [] &quot;There's nothing to DELETE!&quot;
+_ -&gt; send $ responseLBS methodNotAllowed405 &quot;Method Not Allowed M8!&quot;
+_ -&gt; send $ responseLBS notFound404 [] &quot;NotFound&quot;
+</code></pre>
+<p>This time, we also inspect the <code>requestMethod</code> of <code>req</code>, but the idea is the same. This time we're looking at more parts of the <code>Request</code>, so we can return a more specific <code>Repsonse</code>. It comes down to pattern matching, which is the primary control flow mechanism in the Haskell programming language.</p>
+<p><strong>Routing in <code>wai</code> is just a matter of pattern matching on some aspect of the <code>Request</code>, and returning the appropriate <code>Response</code>.</strong></p>
+<p>If you don't believe me, <a href="https://github.com/PostgREST/postgrest/blob/main/src/PostgREST/App.hs#L105">check out how PostgREST does it</a>!</p>
+<p><em>matcha</em> is just small layer on top of <em>wai</em> that provides some structure to your <code>Application</code>, while not impeding on the simplicity of <em>wai</em> we discussed above. One abstraction (or tool) that <em>matcha</em> exports to do this is <em>patterns</em>.</p>
+<h2>Patterns</h2>
+<p><em>Patterns</em> are the primary method of <a href=""><em>control flow</em></a> in Haskell.</p>
+<p>Patterns are used for <strong>deconstructing</strong> and <strong>constructing</strong> data in Haskell.</p>
+<!-- *matcha* provides custom patterns to make it easier to do this for the `Request` path and method parts. -->
+<h3>Deconstructing</h3>
+<p>As we saw in some examples earlier with <em>wai</em>, the main thing we are doing when defining an <code>Application</code> value is pattern matching on the <code>Request</code>, and calculating a <code>Response</code> based on what is there. One part of the <code>Request</code> that is commonly looked at for routing requests is the path, which we can access using the <code>pathInfo</code> function.</p>
+<p>The <code>Request</code> path is just a value of type <code>[Text]</code>, so we can use the various well-known list patterns to match against it.</p>
+<pre><code class="language-haskell">myApp :: Application
+myApp req send = case pathInfo req of
+[]             -&gt; send $ responseLBS ok200 [] &quot;The root path&quot;           -- www.example.com
+[&quot;&quot;]           -&gt; send $ responseLBS ok200 [] &quot;The trailing slash&quot;      -- www.example.com/
+[&quot;foo&quot;]        -&gt; send $ responseLBS ok200 [] &quot;Foo&quot;                     -- www.example.com/foo
+[&quot;foo&quot;, &quot;&quot;]    -&gt; send $ responseLBS ok200 [] &quot;Foo with trailing slash&quot; -- www.example.com/foo/
+[&quot;foo&quot;, &quot;bar&quot;] -&gt; send $ responseLBS ok200 [] &quot;FooBar&quot;                  -- www.example.com/foo/bar
+</code></pre>
+<p>We can use the <code>(:)</code> (a.k.a. <code>cons</code>) operator as well.</p>
+<pre><code class="language-haskell">myApp :: Application
+myApp req send = case pathInfo req of
+[]                 -&gt; send $ responseLBS ok200 [] &quot;The root path&quot;           -- www.example.com
+&quot;&quot; : []            -&gt; send $ responseLBS ok200 [] &quot;The trailing slash&quot;      -- www.example.com/
+&quot;foo&quot; : []         -&gt; send $ responseLBS ok200 [] &quot;Foo&quot;                     -- www.example.com/foo
+&quot;foo&quot; : &quot;&quot; : []    -&gt; send $ responseLBS ok200 [] &quot;Foo with trailing slash&quot; -- www.example.com/foo/
+&quot;foo&quot; : &quot;bar&quot; : [] -&gt; send $ responseLBS ok200 [] &quot;FooBar&quot;                  -- www.example.com/foo/bar
+_                  -&gt; send $ responseLBS notFound404 [] &quot;404 Not Found&quot;     -- every other case 
+</code></pre>
+<p><em>matcha</em> provides a pattern named <code>End</code> to represent the empty list. Let's use that from now on.</p>
+<pre><code class="language-haskell">myApp :: Application
+myApp req send = case pathInfo req of
+End                 -&gt; send $ responseLBS ok200 [] &quot;The root path&quot;           -- www.example.com
+&quot;&quot; : End            -&gt; send $ responseLBS ok200 [] &quot;The trailing slash&quot;      -- www.example.com/
+&quot;foo&quot; : End         -&gt; send $ responseLBS ok200 [] &quot;Foo&quot;                     -- www.example.com/foo
+&quot;foo&quot; : &quot;&quot; : End    -&gt; send $ responseLBS ok200 [] &quot;Foo with trailing slash&quot; -- www.example.com/foo/
+&quot;foo&quot; : &quot;bar&quot; : End -&gt; send $ responseLBS ok200 [] &quot;FooBar&quot;                  -- www.example.com/foo/bar
+_                   -&gt; send $ responseLBS notFound404 [] &quot;404 Not Found&quot;     -- every other case 
+</code></pre>
+<p><em>Sub Routing</em> is also very natural.</p>
+<pre><code class="language-haskell">v1API :: Path -&gt; Application
+v1API path req send = undefined
+
+v2API :: Path -&gt; Application
+v2API path req send = undefined
+
+myAPI :: Application
+myAPI req send = case pathInfo req of
+End              -&gt; undefined
+&quot;v1&quot; : v1SubPath -&gt; v1API v1SubPath req send
+&quot;v2&quot; : v2SubPath -&gt; v2API v2SubPath req send
+_                -&gt; undefined
+</code></pre>
+<p>What if we want a path parameter? Without <code>matcha</code> we need to import the <code>http-api-data</code> package to decode parts of the request path into structured Haskell values. We do this with the <code>parseUrlPiece</code> method under the <code>FromHttpApiData</code> typeclass.</p>
+<p>To use, <code>parseUrPiece</code>, the type to be parsed needs to be an instance of the <code>FromHttpApiData</code> typeclass. Instances for common data types like <code>Int</code> are already provided.</p>
+<pre><code class="language-haskell">import Web.HttpApiData
+
+checkAge :: Int -&gt; ByteString
+checkAge = undefined
+
+ageCheckerApp :: Application
+ageCheckerApp req send = case pathInfo req of
+&quot;check&quot; : ageText : End -&gt; case parseUrlPiece ageText of
+Left _ -&gt; undefined
+Right age -&gt; send $ responseLBS ok200 [] $ checkAge age
+_ -&gt; undefined
+</code></pre>
+<p>To get the path part after <code>&quot;check&quot;</code> as an <code>Int</code>, we have to pattern match against the result of <code>parseUrlPiece</code>.</p>
+<p><em>matcha</em> provides the <code>Param</code> pattern to do this more succinctly.</p>
+<pre><code class="language-haskell">ageCheckerApp :: Application
+ageCheckerApp req send = case pathInfo req of
+&quot;check&quot; : Param age : End -&gt; send $ responseLBS ok200 [] $ checkAge age
+_ -&gt; undefined
+</code></pre>
+<p>Using <code>parseUrlPiece</code> is still necessary if you want to use the parse error in the calculation of a <code>Response</code>. <code>Param</code> only matches the succesful case of parsing the <code>Text</code> into the inferred data type.</p>
+<p>Some times the target type of <code>parseUrlPiece</code> cannot be inferred by the compiler. To satisfy the compiler, use a <code>ScopedTypeVariable</code></p>
+<pre><code class="language-haskell">ageCheckerApp :: Application
+ageCheckerApp req send = case pathInfo req of
+&quot;check&quot; : Param (age :: Int) : End -&gt; send $ responseLBS ok200 [] $ checkAge age
+_ -&gt; undefined
+</code></pre>
+<p>, or</p>
+<pre><code class="language-haskell">ageCheckerApp :: Application
+ageCheckerApp req send = case pathInfo req of
+&quot;check&quot; : Param age : End -&gt; send $ responseLBS ok200 [] $ checkAge (age :: Int)
+_ -&gt; undefined
+</code></pre>
+<p>, or a</p>
+<pre><code class="language-haskell">ageCheckerApp :: Application
+ageCheckerApp req send = case pathInfo req of
+&quot;check&quot; : Param @Int age : End -&gt; send $ responseLBS ok200 [] $ checkAge age
+_ -&gt; undefined
+</code></pre>
+<p><code>TypeApplication</code>.</p>
+<p>Each pattern corresponds to a specific shape of the <code>Request</code> path. If a pattern matches, we specify what is sent back to the client in that case. Notice that <em>we must handle</em> every possibilty of the <code>Request</code> path. Otherwise, our code won't compile.</p>
+<p><code>matcha</code> also provides custom patterns for every standard method mentioned in <a href="">HTTP-RFC0007</a>.</p>
+<p>With just plain <code>wai</code> you match against the <code>Method</code> type, which is a type synonym for <code>ByteString</code>, using <code>String</code> syntax (you need the <code>OverloadedStrings</code> language extension).</p>
+<pre><code class="language-haskell">petAPI :: Application
+petAPI req send = case pathInfo req of
+&quot;pets&quot; : End -&gt; case requestMethod req of
+&quot;GER&quot; -&gt; getAllPets req send
+_ -&gt; undefined
+&quot;pets&quot; : &quot;new&quot; : End -&gt; case requestMethod req of
+&quot;POST&quot; -&gt; newPet req send
+_ -&gt; undefined
+_ -&gt; undefined
+</code></pre>
+<p>With <code>matcha</code> we can use the <code>GET</code> and <code>POST</code> patterns respectively.</p>
+<pre><code class="language-haskell">petAPI :: Application
+petAPI req send = case pathInfo req of
+&quot;pets&quot; : End -&gt; case requestMethod req of
+GET -&gt; getAllPets req send
+_ -&gt; undefined
+&quot;pets&quot; : &quot;new&quot; : End -&gt; case requestMethod req of
+POST -&gt; newPet req send
+_ -&gt; undefined
+_ -&gt; undefined
+</code></pre>
+<p>This prevents the devloper from making small typos. If for some reason you need to handle a custom <code>Method</code>, just use <code>String</code> syntax to spell it out like you normally would without <code>matcha</code>.</p>
+<h3>Constructing</h3>
+<p>Remember, not only can we use patterns for deconstructing data, we can also use them to construct data. This is especially useful for the request path because we can use the same pattern to match against and construct the same URL, given the same parameters of course.</p>
+<pre><code class="language-haskell">toUrl :: Path -&gt; ByteString
+toUrl path = undefined
+
+myApp :: Application
+myApp req send = case pathInfo req of
+&quot;home&quot; : End -&gt; send $ responseLBS ok200 [(&quot;Content-Type&quot;, &quot;text/html&quot;)] [qc|&lt;h1&gt;Welcome Home&lt;/h1&gt;|]
+_ -&gt; send $ responseLBS ok200 [(&quot;Content-Type&quot;, &quot;text/html&quot;)] [qc|&lt;a href={toUrl (&quot;home&quot; : End)}&gt;Go Home!&lt;/a&gt;|]
+</code></pre>
+<p>As you can see, it's useful for embedding links in our pages or redirecting the client. Can we guarantee that we're sending the client the correct location? No, but we can use <em>pattern synonyms</em> to reduce that chance of an invalid link or redirect. To do this, you need to have the <code>Pattern Synonyms</code> language extension turned on.</p>
+<pre><code class="language-haskell">pattern HomePath :: Path
+pattern HomePath = &quot;home&quot; : End
+
+myApp :: Application
+myApp req send = case pathInfo req of
+HomePath -&gt; send $ responseLBS ok200 [(&quot;Content-Type&quot;, &quot;text/html&quot;)] [qc|&lt;h1&gt;Welcome Home&lt;/h1&gt;|]
+_ -&gt; send $ responseLBS ok200 [(&quot;Content-Type&quot;, &quot;text/html&quot;)] [qc|&lt;a href={toUrl HomePath}&gt;Go Home!&lt;/a&gt;|]
+</code></pre>
+<p>Notice how we're using the <code>HomePath</code> pattern to match against and construct the correct request path. <em>Pattern synonyms</em> give us a way to name a specifc pattern and use it in different contexts, while ensuring we're referring to the same pattern definition every time it's used.</p>
+<p>It also works if you have path parameters, just use the <code>Param</code> pattern synonym provided by <code>matcha</code>. It's bi-directional.</p>
+<pre><code class="language-haskell">pattern HomePath :: Path
+pattern HomePath = &quot;home&quot; : End
+
+myApp :: Application
+myApp req send = case pathInfo req of
+HomePath -&gt; send $ responseLBS ok200 [(&quot;Content-Type&quot;, &quot;text/html&quot;)] [qc|&lt;h1&gt;Welcome Home&lt;/h1&gt;|]
+_ -&gt; send $ responseLBS ok200 [(&quot;Content-Type&quot;, &quot;text/html&quot;)] [qc|&lt;a href={toUrl HomePath}&gt;Go Home!&lt;/a&gt;|]
+</code></pre>
+<p>It even works naturally with sub routes. Just nest your pattern synonyms!</p>
+<pre><code class="language-haskell">pattern HomePath :: Path
+pattern HomePath = &quot;home&quot; : End
+
+myApp :: Application
+myApp req send = case pathInfo req of
+HomePath -&gt; send $ responseLBS ok200 [(&quot;Content-Type&quot;, &quot;text/html&quot;)] [qc|&lt;h1&gt;Welcome Home&lt;/h1&gt;|]
+_ -&gt; send $ responseLBS ok200 [(&quot;Content-Type&quot;, &quot;text/html&quot;)] [qc|&lt;a href={toUrl HomePath}&gt;Go Home!&lt;/a&gt;|]
+</code></pre>
+<p>While the level of guarantee that the link you constructed points to a valid location isn't as high as in a web framework like <code>servant</code> or <code>yesod</code>, it is easy to understand and a lot more natural to use than other mechanisms. As long as your routing logic is ordered with good sense, you can construct valid URLs with ease and without <code>TemplateHaskell</code> or <em>type-level programming</em>.</p>
+<h3>The Req Pattern (EXPERIMENTAL)</h3>
+<p><strong>This feature is not a core feature and may be removed. Skip for long-term stability.</strong></p>
+<!-- When defining functions we need a way to 
+
+```haskell
+safeHead :: [a] -> Maybe a
+safeHead [] = Nothing
+safeHead (x:_) = Just x
+```
+
+in case statements,
+
+```haskell
+
+``` -->
+<h2>Parsers</h2>
+<h2>Combinators</h2>
 <h2>Tips &amp; Tricks</h2>
 <p></p>
-                  <footer>
-                    <p>Powered by </p>
-                    <img src="./Haskell-Logo.svg" height="30px"/>
-                  </footer>
-                </article>
-            </body>
-          </html>
-        
+        <footer>
+          <p>Powered by </p>
+          <img src="./Haskell-Logo.svg" height="30px"/>
+        </footer>
+      </article>
+  </body>
+</html>
