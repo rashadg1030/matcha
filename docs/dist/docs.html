@@ -275,20 +275,20 @@ myApp req send = case pathInfo req of
 <p>While the level of guarantee that the link you constructed points to a valid location isn't as high as in a web framework like <code>servant</code> or <code>yesod</code>, it is easy to understand and a lot more natural to use than other mechanisms. As long as your routing logic is ordered with good sense, you can construct valid URLs with ease and without <code>TemplateHaskell</code> or <em>type-level programming</em>.</p>
 <h3>The Req Pattern (EXPERIMENTAL)</h3>
 <p><strong>This feature is not a core feature and may be removed. Skip for long-term stability.</strong></p>
-<!-- When defining functions we need a way to 
-
+<!--
+When defining functions we need a way to 
 ```haskell
 safeHead :: [a] -> Maybe a
 safeHead [] = Nothing
 safeHead (x:_) = Just x
 ```
-
 in case statements,
-
 ```haskell
-
-``` -->
+```
+-->
 <h2>Parsers</h2>
+<pre><code class="language-haskell">
+</code></pre>
 <h2>Combinators</h2>
 <h2>Tips &amp; Tricks</h2>
 <p></p>

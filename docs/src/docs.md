@@ -319,22 +319,23 @@ While the level of guarantee that the link you constructed points to a valid loc
 
 **This feature is not a core feature and may be removed. Skip for long-term stability.**
 
-
-<!-- When defining functions we need a way to 
-
+<!--
+When defining functions we need a way to 
 ```haskell
 safeHead :: [a] -> Maybe a
 safeHead [] = Nothing
 safeHead (x:_) = Just x
 ```
-
 in case statements,
+```haskell
+```
+-->
+
+## Parsers
 
 ```haskell
 
-``` -->
-
-## Parsers
+```
 
 ## Combinators
 
